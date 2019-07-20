@@ -1,24 +1,49 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { VictoryLine, VictoryChart, VictoryTheme } from 'victory';
+import CustomChart from './CustomChart';
+import { data, data2 } from './data';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+      <h1>Victoria tracks stocks.</h1>
+      <h3>Tell Victoria what stocks to track.</h3>
+      <CustomChart>
+        <VictoryChart
+          theme={VictoryTheme.material}
+          animate={{
+            duration: 2000,
+            onLoad: { duration: 1000 }
+          }}
+          interpolation='natural'
+          height={450}
+          width={800}
+          margin={{ top: 20, bottom: 20 }}
+          categories={{
+            x: ["Jan",
+              "Feb",
+              "Mar",
+              "Apr",
+              "May",
+              "Jun",
+              "Jul",
+              "Aug",
+              "Sep",
+              "Oct",
+              "Nov",
+              "Dec"
+            ]
+          }}
         >
-          Learn React
-        </a>
-      </header>
+          <VictoryLine
+            interpolation='natural'
+            data={data} />
+          <VictoryLine
+            interpolation='natural'
+            style={{ data: { stroke: 'red' } }}
+            data={data2} />
+        </VictoryChart>
+      </CustomChart>
     </div>
   );
 }
